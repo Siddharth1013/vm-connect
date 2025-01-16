@@ -35,16 +35,19 @@ export default function AddDeviceModal() {
               },
         });
         const data=await res.json();
-        console.log(data);
         setTags(data);
       }
       fetchAllTags();
     },[]);
 
     const handleTagSelection=(values)=>{
-      // setTagId(values);
-      console.log(tags);
+      for(let i=0;i<tags.length;i++){
+        if(tags[i].tagId==values)
+          setPolicyId(tags[i].policyId);
+      }
     }
+
+    
 
     const handleOk2 = () => {
       form
