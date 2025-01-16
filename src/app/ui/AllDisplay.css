@@ -1,0 +1,41 @@
+.search-bar{
+    color: black !important;
+    font-weight: 600 !important;
+    border:none !important;
+    box-shadow: none !important; /* Remove shadow on focus */
+    border: none !important; /* Remove default outline */
+    background-color: #fff !important;
+    border: 2px solid black !important;
+    height: 3rem;
+    font-size: 1.2rem;
+}
+
+.ant-select-focused {
+    border-radius: 20px !important;
+    box-shadow: 0 0 10px rgba(87, 142, 126, 0.5); 
+}
+
+.ant-table-thead > tr > th{
+    background-color: #F5ECD57a !important;
+    border: 2px solid #20201E;
+    text-align: center !important;
+}
+  
+.ant-table-tbody > tr > td{
+    border: 2px solid #20201E;
+    font-size: 1.1rem !important;
+    text-align: center !important;
+}
+
+.device-link:hover{
+    color:#578e7e !important;
+}
+
+.ant-pagination-item{
+    background-color: #578e7e !important;
+    border: 2px solid #20201E !important;
+}
+
+.ant-pagination-item a{
+    color: #20201E !important;
+}

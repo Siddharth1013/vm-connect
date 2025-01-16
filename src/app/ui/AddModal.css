@@ -1,0 +1,16 @@
+.add-button{
+    height:3rem !important;
+    padding:0 1rem !important;
+    font-size:1.1rem !important;
+    font-weight:600 !important;
+    margin-left:10px !important;
+    font-family:'poppins' !important;
+    background-color:#578E7E !important;
+    color:#20201e !important;
+    border:2px solid #20201e !important;
+}
+
+.add-button:hover{
+    border-radius: 25px !important;
+}
+
