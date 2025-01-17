@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   const isLogin = pathname === "/login";
   return (
     <html lang="en">
-      <body className={`${poppins.className}`} style={{padding:'0',margin:'0'}}>
+      <body className={`${poppins.className}`} style={{padding:'0',margin:'0'}} suppressHydrationWarning={true}>
         {isLogin?
         <Login/>:
         <div className="main-layout">

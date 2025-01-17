@@ -47,8 +47,6 @@ export default function AddDeviceModal() {
       }
     }
 
-    
-
     const handleOk2 = () => {
       form
       .validateFields()

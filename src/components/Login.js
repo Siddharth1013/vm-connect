@@ -2,6 +2,39 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation'
+import styled from 'styled-components';
+import '../app/ui/Login.css';
+
+const MainContainer = styled.div`
+  display: flex;
+  height: 100vh;
+`;
+
+const SignInImageContainer = styled.img`
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50vw;
+  float: left;
+  height: 100vh;
+  object-fit: cover;
+`;
+
+const LoginBodyContainer = styled.div`
+  // background:;
+  width: 50vw;
+  float: right;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+const H1=styled.h1`
+  font-size:3rem !important;
+  color:'#20201e';
+`
 
 export default function Login() {
     const router = useRouter();
@@ -33,13 +66,11 @@ export default function Login() {
       console.log('Failed:', errorInfo);
     };
   return (
-    <div style={{display:'flex'}}>
-      <div style={{width:'50%'}}>
-        <img src={'/Login_Image.jpg'} style={{width:'100%',height:'100vh',maxHeight:'800px'}}></img>
-      </div>
-      <div style={{display:'flex',justifyContent:'center',width:'50%',padding:'2%'}}>
+    <MainContainer>
+      <SignInImageContainer src='https://cdn.gamma.app/q64fwhzkuhdqyit/generated-images/LydIWWr1zdX9IrMuhVfG_.jpg'/>
+      <LoginBodyContainer>
         <div>
-        <h1>Welcome to Value-Connect</h1>
+        <H1><span style={{fontSize:'3rem',fontWeight:'500'}}>Welcome to</span><br/> <span style={{color:'#578e7e'}}>ValueConnect</span></H1>
         <Form
             name="basic"
             style={{
@@ -53,7 +84,7 @@ export default function Login() {
             autoComplete="off"
         >
             <Form.Item
-            label="Username"
+            className='single-device-form-item'
             name="username"
             rules={[
                 {
@@ -62,11 +93,11 @@ export default function Login() {
                 },
             ]}
             >
-            <Input />
+            <Input placeholder='Enter Username'/>
             </Form.Item>
 
             <Form.Item
-            label="Password"
+            // label="Password"
             name="password"
             rules={[
                 {
@@ -74,8 +105,9 @@ export default function Login() {
                 message: 'Please input your password!',
                 },
             ]}
+            className='single-device-form-item'
             >
-            <Input.Password />
+            <Input.Password placeholder='Enter Password'/>
             </Form.Item>
 
             {/* <Form.Item name="remember" valuePropName="checked" label={null}>
@@ -89,7 +121,7 @@ export default function Login() {
             </Form.Item>
         </Form>
         </div>
-      </div>
-    </div>
+      </LoginBodyContainer>
+    </MainContainer>
   )
 }

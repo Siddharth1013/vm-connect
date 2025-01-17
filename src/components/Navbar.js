@@ -2,10 +2,12 @@
 import Link from 'next/link';
 import {DesktopOutlined,FileOutlined,DashboardOutlined,PlayCircleOutlined,ReconciliationOutlined,CalendarOutlined,TagsOutlined,LogoutOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Login from './Login';
 import '../app/ui/Navbar.css'
+
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, href) {
@@ -43,6 +45,12 @@ const bottomItems = [
 
 const Navbar = ({children}) => {
   const [collapsed, setCollapsed] = useState(false);
+  const router=useRouter(); //Remove after building dashboard
+  const pathname=usePathname();
+  useEffect(()=>{
+    if(pathname=='/')
+      router.push('/device')
+  },[])
   
   return (
     <Layout hasSider>
@@ -51,7 +59,7 @@ const Navbar = ({children}) => {
           <Image src={"/android-chrome-192x192.png"} width={30} height={30} alt=''></Image>
           <div style={{marginLeft:'2%'}}>ValueConnect</div>
         </div>
-        <Menu className='nav-menu' mode="inline" items={items} />
+        <Menu className='nav-menu' mode="inline" items={items} defaultSelectedKeys={['2']}/>
         <Menu className='nav-menu-bot' theme='light' mode="inline" items={bottomItems} />
       </Sider>
       <Layout style={{marginInlineStart: 200,backgroundColor:'#F8FBFB'}}>
