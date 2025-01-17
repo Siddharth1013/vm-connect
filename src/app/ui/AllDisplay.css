@@ -36,6 +36,10 @@
     border: 2px solid #20201E !important;
 }
 
+.ant-pagination-item-active{
+    background-color: #F5ECD5 !important;
+}
+
 .ant-pagination-item a{
     color: #20201E !important;
 }

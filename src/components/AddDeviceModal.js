@@ -4,6 +4,7 @@ import { Button, Modal,Form,Input,Space,InputNumber,Select,Tooltip,Checkbox,Swit
 import { PlusOutlined,PlusCircleTwoTone, PlusCircleOutlined } from '@ant-design/icons';
 import '../app/ui/AddModal.css'
 import '../app/ui/AddDeviceModal.css';
+import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 const format = 'HH:mm:ss';
 
@@ -11,6 +12,7 @@ const format = 'HH:mm:ss';
 //modalText2,open2,confirmLoading2 - To open the next modal related to configuring new device
 
 export default function AddDeviceModal() {
+    const router=useRouter();
     const startTime = dayjs('12:08:23', 'h:mm:ss');
     const endTime = dayjs('12:08:23', 'h:mm:ss');
     const [open1, setOpen1] = useState(false);
@@ -23,22 +25,21 @@ export default function AddDeviceModal() {
     const [form] = Form.useForm(); 
 
     const [tags,setTags]=useState({});
+    const [devices,setDevices]=useState({});
     const [policyId,setPolicyId]=useState(-1);
 
-    useEffect(()=>{
-      const fetchAllTags=async()=>{
-        const res=await fetch('http://localhost:8081/v1/tag/fetch',{
-              method: 'GET',
-              headers: {
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                'session':`${localStorage.getItem('refreshToken')}`,
-              },
+    const loadTags=async()=>{
+      const res=await fetch('http://localhost:8081/v1/tag/fetch',{
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'session':`${localStorage.getItem('refreshToken')}`,
+        },
         });
         const data=await res.json();
+        console.log(data);
         setTags(data);
-      }
-      fetchAllTags();
-    },[]);
+    }
 
     const handleTagSelection=(values)=>{
       for(let i=0;i<tags.length;i++){
@@ -99,6 +100,7 @@ export default function AddDeviceModal() {
       // .catch((info) => {
       //   console.log('Validate Failed:', info);
       // });
+      loadTags();
       setConfirmLoading1(false);
       setOpen1(false);
       setOpen2(true);

@@ -3,7 +3,8 @@ import { SearchOutlined,CheckCircleTwoTone,CloseCircleTwoTone } from "@ant-desig
 import {AutoComplete ,Button,Input,Table,Space,Tag} from "antd";
 import AddDeviceModal from "./AddDeviceModal";
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useRouter } from "next/navigation";
 import '../app/ui/AllDisplay.css';
 
 const titltStyle={
@@ -12,7 +13,10 @@ const titltStyle={
 }
 
 export default function AllDevices() {
+    const router=useRouter();
+    const [devices,setDevices]=useState({});
     const [options, setOptions] = useState([]);
+    const [data,setData]=useState([]);
     const [inp, setInp] = useState("");
     const handleInput =async (value) => {
         setInp(value);
@@ -39,6 +43,37 @@ export default function AllDevices() {
         console.log(inp);
     }
 
+    useEffect(()=>{
+        if(localStorage.getItem('accessToken')==undefined)
+            router.push('/login')
+        const fetchAllDevices=async()=>{
+            const res=await fetch('http://localhost:8081/v1/device/fetch',{
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'session':`${localStorage.getItem('refreshToken')}`,
+              },
+              });
+              const data=await res.json();
+              setDevices(data);
+              let i=1;
+              const dev=data.map(d=>{
+                const result={
+                    key:d.id,
+                    sno:`${i}.`,
+                    device:d.deviceName,
+                    status:i%2==0?'Online':'Offline',
+                    schedule : `Schedule ${i*3}`
+                }
+                i++;
+                return result;
+              })
+              setData(dev);
+        }
+        fetchAllDevices();
+    },[]);
+
+
     const columns = [
         {
             title: <span style={titltStyle}>S.No</span>,
@@ -49,7 +84,7 @@ export default function AllDevices() {
           title: <span style={titltStyle}>Device</span>,
           dataIndex: 'device',
           key: 'device',
-          render: (text) => <Link href={'/device/currentdevice'} style={{color:'black'}} className="device-link">{text}</Link>,
+          render: (text,record) => <Link href={`/device/${record.key}`} style={{color:'black'}} className="device-link">{text}</Link>,
         },
         {
           title: <span style={titltStyle}>Status</span>,
@@ -63,31 +98,6 @@ export default function AllDevices() {
           key: 'schedule',
         },
       ];
-      const data = [
-        {
-          key: '1',
-          sno:'1.',
-          device: 'Sony Bravia',
-          status: 'Online',
-          schedule:'Schedule 34'
-        },
-        {
-            key: '2',
-            sno:'2.',
-            device: 'Samsung Frame TV',
-            status: 'Online',
-            schedule:'Schedule 1'
-        },
-        {
-            key: '3',
-            sno:'3.',
-            device: 'Toshiba New Sonic 4K',
-            status: 'Offline',
-            schedule:'Schedule 2'
-        },
-      ];
-
-    
     
     return (
         <div>
